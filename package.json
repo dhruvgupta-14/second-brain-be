@@ -4,9 +4,9 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
-  "build": "tsc -b",
-  "start": "node dist/index.js",
-  "dev": "tsc -b && nodemon dist/index.js"
+    "build": "tsc -b",
+    "start": "node dist/index.js",
+    "dev": "tsc -b && nodemon dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +33,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.15.1",
     "multer": "^2.0.1",
+    "typescript": "^5.8.3",
     "ws": "^8.18.2"
   },
   "devDependencies": {
