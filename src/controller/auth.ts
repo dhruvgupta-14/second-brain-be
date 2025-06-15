@@ -39,6 +39,7 @@ export async function Signup(req: Request, res: Response): Promise<void> {
     return;
   }
 }
+
 export async function Login(req: Request, res: Response): Promise<void> {
   const { username, password } = req.body;
   try {
@@ -65,7 +66,7 @@ export async function Login(req: Request, res: Response): Promise<void> {
       res.cookie("token", token, {
         httpOnly: true,
         secure:true, // secure: false, Localhost is not HTTPS
-        sameSite: "lax", // Allows cookies to be sent on GET/POST from different port
+        sameSite: "none", 
         maxAge: 24 * 60 * 60 * 1000,
       });
       res.status(200).json({
