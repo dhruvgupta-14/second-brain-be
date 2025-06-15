@@ -11,7 +11,7 @@ const app= express()
 const server=http.createServer(app)
 app.use(cors({
   credentials:true,
-  origin:"https://second-brain-j5omn7rnm-dhruvgupta-14s-projects.vercel.app"
+  origin:"https://second-brain-fe-five.vercel.app"
   // origin:"http://localhost:5173"
 }))
 app.use(cookieParser())
