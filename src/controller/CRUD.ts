@@ -70,8 +70,6 @@ export async function createContent(
       contentType: contentType,
       userId: user._id.toString(),
     };
-
-    console.log("Record to upsert:", JSON.stringify(record, null, 2));
     await index.upsertRecords([record]);
     res.status(200).json({
       message: "Content Created",
@@ -94,7 +92,7 @@ export async function getAllContent(
 ): Promise<void> {
   const user = req.user;
   try {
-    const content = await Content.find({ userId: user._id })
+    const content = await Content.find({ userId: user._id }).sort({createdAt:-1})
       .populate("userId", "usernmae")
       .populate("tags", "title");
     res.status(200).json({
@@ -212,7 +210,7 @@ export async function getOtherBrain(
       });
       return;
     }
-    const content = await Content.find({ userId: linkDoc.userId })
+    const content = await Content.find({ userId: linkDoc.userId }).sort({createdAt:-1})
       .populate("userId", "username")
       .populate("tags", "title");
     res.status(200).json({

@@ -28,7 +28,6 @@ export async function sendMessage(
       type: "new_message",
       data: newMessage,
     });
-
     res.status(200).json({
       success: true,
       data: newMessage,
@@ -151,7 +150,6 @@ export async function getConversations(req: CustomRequest, res: Response): Promi
           firstName:1,
           username: 1,
           avatar: 1,
-          isOnline: 1,
           lastMessage: 1,
           unreadCount: 1
         }

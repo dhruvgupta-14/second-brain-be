@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import BlackListToken from "../model/blackListToken.js";
 import { deleteLocalFile } from "../middleware/multer.js";
-import { uploadToCloudinary } from "../util/cloudinary.js";
+import { deleteFromCloudinary, uploadToCloudinary } from "../util/cloudinary.js";
 interface CustomRequest extends Request {
   user?: any;
 }
@@ -124,7 +124,10 @@ export async function updateUser(req: CustomRequest, res: Response): Promise<voi
     if(req.file){
       console.log("uploading start")
       newAvatarUrl=await uploadToCloudinary(req.file.path);
-      console.log(newAvatarUrl)
+      // console.log(newAvatarUrl)
+      if (originalAvatar) {
+        await deleteFromCloudinary(originalAvatar);
+      }
       await deleteLocalFile(req.file.path);
     }
     findUser.firstName=firstName
