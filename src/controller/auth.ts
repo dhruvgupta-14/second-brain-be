@@ -64,7 +64,7 @@ export async function Login(req: Request, res: Response): Promise<void> {
       });
       res.cookie("token", token, {
         httpOnly: true,
-        secure: false, // Localhost is not HTTPS
+        secure:true, // secure: false, Localhost is not HTTPS
         sameSite: "lax", // Allows cookies to be sent on GET/POST from different port
         maxAge: 24 * 60 * 60 * 1000,
       });
