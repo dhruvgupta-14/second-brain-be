@@ -4,7 +4,8 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import BlackListToken from "../model/blackListToken.js";
 import { deleteLocalFile } from "../middleware/multer.js";
-import { deleteFromCloudinary, uploadToCloudinary } from "../util/cloudinary.js";
+import { deleteFromAzure, uploadToAzure } from "../util/azure.js";
+// import { deleteFromCloudinary, uploadToCloudinary } from "../util/cloudinary.js";
 interface CustomRequest extends Request {
   user?: any;
 }
@@ -65,8 +66,8 @@ export async function Login(req: Request, res: Response): Promise<void> {
       });
       res.cookie("token", token, {
         httpOnly: true,
-        secure:true, // secure: false, Localhost is not HTTPS
-        sameSite: "none", 
+        secure:false, // secure: false, Localhost is not HTTPS
+        sameSite: "lax", //none for deploy 
         maxAge: 24 * 60 * 60 * 1000,
       });
       res.status(200).json({
@@ -124,10 +125,10 @@ export async function updateUser(req: CustomRequest, res: Response): Promise<voi
     let newAvatarUrl = originalAvatar;
     if(req.file){
       console.log("uploading start")
-      newAvatarUrl=await uploadToCloudinary(req.file.path);
+      newAvatarUrl=await uploadToAzure(req.file.path);
       // console.log(newAvatarUrl)
       if (originalAvatar) {
-        await deleteFromCloudinary(originalAvatar);
+        await deleteFromAzure(originalAvatar);
       }
       await deleteLocalFile(req.file.path);
     }

@@ -10,15 +10,17 @@ cloudinary.config({
 export const uploadToCloudinary = async (filePath: string): Promise<string> => {
   try {
     const result = await cloudinary.uploader.upload(filePath, {
-      folder: 'uploads', 
-      resource_type: 'auto',
+      folder: 'uploads',
+      resource_type: 'auto'
     });
+    console.log(result)
     return result.secure_url;
   } catch (error) {
-    console.log(error)
-    return ""
+    console.error("Cloudinary upload failed:", error);
+    return "";
   }
 };
+
 export const deleteFromCloudinary = async (url: string) => {
   try {
     const parts = url.split('/');
